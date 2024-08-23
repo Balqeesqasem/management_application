@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Task Manager Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This is the front-end application for the Task Manager system, built with React. It interfaces with a Rails API to provide a user-friendly interface for managing tasks. Users can create, read, update, and delete tasks through this application.
 
-In the project directory, you can run:
+## Installation and Setup
 
-### `npm start`
+### Clone the Repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+git clone https://github.com/Balqeesqasem/ClientTrip-management_application_Front.git
+cd ClientTrip-management_application_Front
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+Install Dependencies
+Make sure you have Node.js installed. Then run:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Copy code
+npm install
+Start the Development Server
+bash
+Copy code
+npm start
+The application will be available at http://localhost:3001.
 
-### `npm run build`
+Features
+Create a Task: Fill out the form to add a new task.
+Edit a Task: Update the details of an existing task.
+Delete a Task: Remove a task from the list.
+View Task List: Display all tasks with details like title, description, status, tag, and priority.
+API Integration
+This application communicates with the Rails API at http://localhost:3000. Ensure that the Rails server is running and accessible for the front-end to function correctly.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Error Handling
+Errors from API requests are handled and displayed to the user. Error messages will be shown if any operation fails.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Folder Structure
+src/: Contains the React source code.
+components/: React components for the application.
+styles/: CSS files for styling the application.
+Styles
+The application uses a separate CSS file for styling. Ensure that the CSS files are correctly linked to reflect the styles.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Contributing
+Feel free to contribute by opening issues or submitting pull requests. Follow the coding guidelines and test your changes before submitting.
 
-### `npm run eject`
+License
+This project is licensed under the MIT License.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+vbnet
+Copy code
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can copy and paste this into your `README.md` file. Let me know if there’s anything else you need!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
