@@ -11,13 +11,26 @@ const TaskManager = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [error, setError] = useState(''); // State for error messages
 
+  // Filter states
+  const [filterStatus, setFilterStatus] = useState('');
+  const [filterPriority, setFilterPriority] = useState('');
+  const [filterTag, setFilterTag] = useState('');
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
+  // Fetch tasks with optional filters
+  const fetchTasks = async (filters = {}) => {
     try {
-      const response = await fetch('http://localhost:3000/tasks');
+      const { status, priority, tag } = filters;
+      const query = new URLSearchParams({
+        ...(status && { status }),
+        ...(priority && { priority }),
+        ...(tag && { tag }),
+      }).toString();
+
+      const response = await fetch(`http://localhost:3000/tasks?${query}`);
       if (!response.ok) {
         throw new Error('Failed to fetch tasks');
       }
@@ -29,6 +42,7 @@ const TaskManager = () => {
     }
   };
 
+  // Create a new task
   const createTask = async () => {
     try {
       const response = await fetch('http://localhost:3000/tasks', {
@@ -65,6 +79,7 @@ const TaskManager = () => {
     }
   };
 
+  // Update an existing task
   const updateTask = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
@@ -100,6 +115,7 @@ const TaskManager = () => {
     }
   };
 
+  // Delete a task
   const deleteTask = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
@@ -117,6 +133,7 @@ const TaskManager = () => {
     }
   };
 
+  // Handle edit form fields
   const handleEdit = (task) => {
     setEditingTaskId(task.id);
     setTitle(task.title);
@@ -126,6 +143,7 @@ const TaskManager = () => {
     setPriority(task.priority);
   };
 
+  // Handle form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (editingTaskId) {
@@ -135,10 +153,23 @@ const TaskManager = () => {
     }
   };
 
+  // Handle filter form submission
+  const handleFilterSubmit = (e) => {
+    e.preventDefault();
+    fetchTasks({
+      status: filterStatus,
+      priority: filterPriority,
+      tag: filterTag,
+    });
+  };
+
   return (
     <div className="container">
       <h2 className="header">{editingTaskId ? 'Edit Task' : 'Create a New Task'}</h2>
       {error && <div className="error-message">{error}</div>} {/* Display error message */}
+
+
+      {/* Task Creation/Editing Form */}
       <form onSubmit={handleFormSubmit} className="form">
         <div className="form-group">
           <label className="label">Title:</label>
@@ -154,6 +185,8 @@ const TaskManager = () => {
             <option value="pending">Pending</option>
             <option value="in_progress">In Progress</option>
             <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="on_hold">On Hold</option>
           </select>
         </div>
         <div className="form-group">
@@ -172,6 +205,41 @@ const TaskManager = () => {
         <button type="submit" className="button">{editingTaskId ? 'Update Task' : 'Create Task'}</button>
       </form>
 
+     {/* Filter Form */}
+     <form onSubmit={handleFilterSubmit} className="form">
+        <div className="form-group">
+          <label className="label">Filter Status:</label>
+          <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="select">
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="on_hold">On Hold</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="label">Filter Tag:</label>
+          <select value={filterTag} onChange={(e) => setFilterTag(e.target.value)} className="select">
+            <option value="">All</option>
+            <option value="back_end">Back End</option>
+            <option value="front_end">Front End</option>
+            <option value="design">Design</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="label">Filter Priority:</label>
+          <input
+            type="number"
+            value={filterPriority}
+            onChange={(e) => setFilterPriority(e.target.value)}
+            className="input"
+          />
+        </div>
+        <button type="submit" className="button">Apply Filters</button>
+      </form>
+
       <h2 className="header">Task List</h2>
       <ul className="task-list">
         {tasks.map((task) => (
@@ -182,6 +250,7 @@ const TaskManager = () => {
           </li>
         ))}
       </ul>
+
     </div>
   );
 };
